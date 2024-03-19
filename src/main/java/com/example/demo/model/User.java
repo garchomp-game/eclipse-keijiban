@@ -12,8 +12,10 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.ManyToMany;
+import jakarta.persistence.Table;
 
 @Entity
+@Table(name = "users")
 public class User implements UserDetails {
     
     /**
@@ -28,10 +30,8 @@ public class User implements UserDetails {
     private String username;
     private String password;
     
-    // 通常は権限を保持するためのフィールド（Role や Authority のコレクション）を持っています。
-    // GrantedAuthority を実装したクラスのコレクションとして権限を管理します。
     @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-    private Collection<GrantedAuthority> authorities;
+    private Collection<Authority> authorities;	
 
     // UserDetails インターフェースで必要なメソッドを実装します。
 
