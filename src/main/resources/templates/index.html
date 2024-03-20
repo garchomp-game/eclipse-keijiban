@@ -5,8 +5,7 @@
 </head>
 <body>
 	<h1>Welcome to the Home Page!</h1>
-	<p
-		th:text="'Hello, ' + ${#httpServletRequest.userPrincipal.name} + '!'"></p>
+	<p th:text="'Hello, ' + ${username} + '!'"></p>
 	<form th:action="@{/logout}" method="post">
 		<input type="submit" value="Sign Out" />
 	</form>

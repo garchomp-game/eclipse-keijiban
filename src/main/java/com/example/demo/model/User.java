@@ -13,27 +13,26 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.ManyToMany;
 import jakarta.persistence.Table;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Entity
+@Data
+@NoArgsConstructor
 @Table(name = "users")
 public class User implements UserDetails {
-    
-    /**
-	 * 
-	 */
+	
 	private static final long serialVersionUID = 1L;
 
-	@Id
+    @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     private String username;
     private String password;
-    
-    @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-    private Collection<Authority> authorities;	
 
-    // UserDetails インターフェースで必要なメソッドを実装します。
+    @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    private Collection<Authority> authorities;
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
@@ -50,29 +49,33 @@ public class User implements UserDetails {
         return username;
     }
 
-    // アカウントの有効期限が切れていないことを示すメソッド
     @Override
     public boolean isAccountNonExpired() {
         return true;
     }
 
-    // アカウントがロックされていないことを示すメソッド
     @Override
     public boolean isAccountNonLocked() {
         return true;
     }
 
-    // 資格情報が有効期限切れでないことを示すメソッド
     @Override
     public boolean isCredentialsNonExpired() {
         return true;
     }
 
-    // アカウントが有効であることを示すメソッド
     @Override
     public boolean isEnabled() {
         return true;
     }
+    
+    public void setUsername(String username) {
+    	this.username = username;
+    }
+    
+    public void setPassword(String password) {
+        this.password = password;
+    }
 
-    // getter, setter, その他のロジック...
+    // lombokにより自動生成されるため、明示的なゲッター、セッターは不要
 }
