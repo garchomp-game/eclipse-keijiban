@@ -1,0 +1,31 @@
+<!DOCTYPE html >
+<html xmlns:th="http://www.thymeleaf.org"
+	th:fragment="layout (title, body)">
+<head>
+<title th:replace="${title}"></title>
+<link rel="stylesheet"
+	th:href="@{/webjars/bootstrap/5.1.3/css/bootstrap.min.css}" />
+</head>
+<body>
+	<header>
+		<!-- ログインしている場合 -->
+		<div th:if="${userData['hasLogin']}">
+			<form th:action="@{/logout}" method="post">
+				<button type="submit" class="btn btn-primary">Sign Out</button>
+			</form>
+		</div>
+		<!-- ログインしていない場合 -->
+		<div th:if="${!userData['hasLogin']}">
+			<form th:action="@{/login}" method="get">
+				<button type="submit" class="btn btn-primary">Sign In</button>
+			</form>
+		</div>
+	</header>
+
+	<div th:replace="${body}">
+		<!-- ページ固有のコンテンツがここに挿入される -->
+	</div>
+
+	<footer> </footer>
+</body>
+</html>

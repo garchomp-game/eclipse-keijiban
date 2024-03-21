@@ -15,28 +15,28 @@ import com.example.demo.service.CustomUserDetailsService;
 @EnableWebSecurity
 public class SecurityConfig {
 
-    @Bean
-    public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
-        http
-            .authorizeHttpRequests(authz -> authz
-                .requestMatchers("/", "/login", "/register").permitAll()
-                .anyRequest().authenticated())
-            .formLogin(form -> form
-                .loginPage("/login")
-                .defaultSuccessUrl("/home", true)
-                .permitAll())
-            .logout(logout -> logout.permitAll());
-        
-        return http.build();
-    }
+	@Bean
+	public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
+		http.authorizeHttpRequests(authz -> authz
+			.requestMatchers("/webjars/**", "/css/**", "/js/**", "/images/**").permitAll()
+			.requestMatchers("/", "/login", "/register").permitAll()
+			.anyRequest().authenticated()
+		)
+		.formLogin(form -> form
+			.loginPage("/login").defaultSuccessUrl("/home", true).permitAll()
+		)
+		.logout(logout -> logout.permitAll());
 
-    @Bean
-    public UserDetailsService userDetailsService() {
-        return new CustomUserDetailsService();
-    }
+		return http.build();
+	}
 
-    @Bean
-    public PasswordEncoder passwordEncoder() {
-        return new BCryptPasswordEncoder();
-    }
+	@Bean
+	public UserDetailsService userDetailsService() {
+		return new CustomUserDetailsService();
+	}
+
+	@Bean
+	public PasswordEncoder passwordEncoder() {
+		return new BCryptPasswordEncoder();
+	}
 }
