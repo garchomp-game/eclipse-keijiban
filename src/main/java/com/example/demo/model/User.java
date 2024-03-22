@@ -76,6 +76,4 @@ public class User implements UserDetails {
     public void setPassword(String password) {
         this.password = password;
     }
-
-    // lombokにより自動生成されるため、明示的なゲッター、セッターは不要
 }

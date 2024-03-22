@@ -8,13 +8,6 @@
 <title>Home Page</title>
 </head>
 <body>
-	<div class="container">
-		<h1>Welcome to the Home Page!</h1>
-		<p th:text="'Hello, ' + ${username} + '!'"></p>
-		<p th:text="'Hello, ' + ${userData.username} + '!'">Hello, User!</p>
-		<p th:if="${currentUser != null and !currentUser?.anonymous}">You
-			are authenticated</p>
-
-	</div>
+	<div class="container"></div>
 </body>
 </html>
