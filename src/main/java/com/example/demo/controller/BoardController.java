@@ -11,12 +11,11 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
 
 import com.example.demo.dto.BoardDTO;
 import com.example.demo.model.Board;
 import com.example.demo.repository.BoardRepository;
-
+	
 import jakarta.validation.Valid;
 
 @Controller
@@ -29,15 +28,19 @@ public class BoardController {
 	private ModelMapper modelMapper;
 
 	@GetMapping("/board/create")
-	public String createBoard() {
+	public String createBoard(Model model) {
+		model.addAttribute("board", new BoardDTO());
 		return "boards/create";
 	}
 
 	@PostMapping("/board")
 	public String storeBoard(@Valid BoardDTO boardDTO, BindingResult result) {
 		if (result.hasErrors()) {
-			return "boardForm";
+			return "boards/create";
 		}
+		Board board = new Board();
+		modelMapper.map(boardDTO, board);
+		boardRepository.save(board);
 		return "redirect:/";
 	}
 

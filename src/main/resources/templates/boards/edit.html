@@ -10,19 +10,19 @@
     <form th:action="@{/board/{id}(id=${board.id})}" th:object="${board}" method="post">
         <input type="hidden" th:field="*{id}" />
         <div class="form-group">
-            <label for="title">Title</label>
+            <label for="title">タイトル</label>
             <input type="text" class="form-control" id="title" name="title" th:field="*{title}" required>
         </div>
         <div class="form-group">
-            <label for="content">Content</label>
+            <label for="content">詳細</label>
             <textarea class="form-control" id="content" name="content" th:field="*{content}" rows="3" required></textarea>
         </div>
         <div class="form-group">
-            <label for="author">Author</label>
+            <label for="author">作者</label>
             <input type="text" class="form-control" id="author" name="author" th:field="*{author}" required>
         </div>
-        <button type="submit" class="btn btn-primary">Save changes</button>
-        <a href="/boards" class="btn btn-secondary">Cancel</a>
+        <button type="submit" class="btn btn-primary">変更</button>
+        <a th:href="@{/board/{id}(id=${board.id})}" class="btn btn-secondary">キャンセル</a>
     </form>
 </div>
 
