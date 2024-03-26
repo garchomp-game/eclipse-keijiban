@@ -1,10 +1,11 @@
 package com.example.demo.dto;
 
-import jakarta.validation.constraints.Size;
-
 import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Size;
+import lombok.Data;
 
-public class BoardDTO {
+@Data
+public 	class BoardDTO {
 
     @NotNull
     @Size(min = 1, max = 255)

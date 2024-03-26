@@ -17,14 +17,8 @@ public class HomeController {
 
 	@GetMapping("/")
 	public String home(Model model, Principal principal) {
-	    if (principal != null) {
-	        model.addAttribute("username", principal.getName());
-	    } else {
-	        model.addAttribute("username", "Guest");
-	    }
 	    Iterable<Board> boards = boardRepository.findAll();
 	    model.addAttribute("boards", boards);
 	    return "index";
 	}
-
 }
