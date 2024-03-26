@@ -7,7 +7,7 @@
 <body>
 <div class="container mt-5">
     <h2>Edit Board</h2>
-    <form th:action="@{/board/{id}(id=${board.id})}" th:object="${board}" method="post">
+    <form th:action="@{/board/{id}(id=${board.id})}" th:object="${board}" th:method="put">
         <input type="hidden" th:field="*{id}" />
         <div class="form-group">
             <label for="title">タイトル</label>

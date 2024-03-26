@@ -7,15 +7,17 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 
 import com.example.demo.dto.BoardDTO;
 import com.example.demo.model.Board;
 import com.example.demo.repository.BoardRepository;
-	
+
 import jakarta.validation.Valid;
 
 @Controller
@@ -52,7 +54,7 @@ public class BoardController {
 		return "boards/show";
 	}
 
-	@PostMapping("/board/{id}")
+	@PutMapping("/board/{id}")
 	public String updateBoard(@PathVariable("id") Long id, @Validated @ModelAttribute("board") BoardDTO boardDTO,
 			BindingResult result, Model model) {
 		if (result.hasErrors()) {
@@ -79,5 +81,12 @@ public class BoardController {
 				.orElseThrow(() -> new ResourceNotFoundException("not found board id is: " + id));
 		model.addAttribute(board);
 		return "boards/edit";
+	}
+	
+	@DeleteMapping("/board/{id}/delete")
+	public String deleteBoard(@PathVariable("id") Long id, Model model) {
+		// 既存のBoardエンティティを取得
+		boardRepository.deleteById(id);
+		return "redirect:/";
 	}
 }
