@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	xmlns:th="http://www.thymeleaf.org"
+	th:replace="~{layouts/layouts :: layout(~{::title}, ~{::body/content()})}">
+<head>
+<title>Chat List</title>
+</head>
+<body>
+	<div class="container mt-4">
+		<h1>Chats</h1>
+		<a th:href="@{/boards/{boardId}/chats/create(boardId=${boardId})}"
+			class="btn btn-primary mb-3">新規チャット作成</a>
+		<table class="table">
+			<thead>
+				<tr>
+					<th scope="col">#</th>
+					<th scope="col">Message</th>
+					<th scope="col">Author</th>
+					<th scope="col">Actions</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr th:each="chat : ${chats}" th:data-id="${chat.id}">
+					<th scope="row" th:text="${chat.id}">1</th>
+					<td th:text="${chat.message}">Message</td>
+					<td th:text="${chat.user.username}">Author</td>
+					<td><a
+						th:href="@{/boards/{boardId}/chats/{chatId}/edit(boardId=${boardId}, chatId=${chat.id})}"
+						class="btn btn-secondary btn-sm">編集</a>
+						<form
+							th:action="@{/boards/{boardId}/chats/{chatId}/delete(boardId=${boardId}, chatId=${chat.id})}"
+							method="post" style="display: inline">
+							<input type="hidden" name="_method" value="delete" />
+							<button type="submit" class="btn btn-danger btn-sm">削除</button>
+						</form></td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+</body>
+</html>

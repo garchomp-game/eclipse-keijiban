@@ -55,7 +55,7 @@ public class BoardController {
 	}
 
 	@PutMapping("/board/{id}")
-	public String updateBoard(@PathVariable("id") Long id, @Validated @ModelAttribute("board") BoardDTO boardDTO,
+	public String updateBoard(@PathVariable("id") Long id, @Validated @ModelAttribute("boards") BoardDTO boardDTO,
 			BindingResult result, Model model) {
 		if (result.hasErrors()) {
 			// バリデーションエラーがあれば編集画面に戻す

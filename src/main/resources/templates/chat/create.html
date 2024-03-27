@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	xmlns:th="http://www.thymeleaf.org"
+	th:replace="~{layouts/layouts :: layout(~{::title}, ~{::body/content()})}">
+<head>
+<title>Chat List</title>
+</head>
+<body>
+	<div class="container mt-4">
+		<h1>新規チャット作成</h1>
+		<form th:action="@{/boards/{boardId}/chats(boardId=${boardId})}" th:object="${chatDTO}"
+			method="post">
+			<div class="mb-3">
+				<label for="message" class="form-label">メッセージ</label>
+				<textarea class="form-control" id="message" name="message"
+					th:field="*{message}" rows="3" required></textarea>
+			</div>
+			<button type="submit" class="btn btn-primary">送信</button>
+			<a href="/boards/{boardId}/chats" class="btn btn-secondary">キャンセル</a>
+		</form>
+	</div>
+</body>
+</html>

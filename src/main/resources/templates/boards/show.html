@@ -8,18 +8,26 @@
 <title>Board Details</title>
 </head>
 <body>
-	<div class="container mt-5">
-		<div class="card">
-			<div class="card-header">ボード詳細</div>
-			<div class="card-body">
-				<h5 class="card-title" th:text="'タイトル:  ' + ${board.title}"></h5>
-				<p class="card-text" th:text="'コンテンツ: ' + ${board.content}"></p>
-				<a th:href="'/'" class="btn btn-primary">戻る</a> <a
-					th:href="'/board/' + ${board.id} + '/edit'" class="btn btn-warning">編集</a>
-			</div>
-			<div class="card-footer text-muted" th:text="'ボードID: ' + ${board.id}">
-			</div>
-		</div>
-	</div>
+<div class="container mt-5">
+    <div class="card">
+        <div class="card-header">ボード詳細</div>
+        <div class="card-body">
+            <h5 class="card-title" th:text="'タイトル:  ' + ${board.title}"></h5>
+            <p class="card-text" th:text="'コンテンツ: ' + ${board.content}"></p>
+            <div class="d-flex justify-content-between">
+                <div>
+                    <a th:href="'/'" class="btn btn-primary">戻る</a>
+                    <a th:href="'/board/' + ${board.id} + '/edit'" class="btn btn-warning">編集</a>
+                </div>
+                <div>
+                    <a th:href="@{/boards/{id}/chats(id=${board.id})}" class="btn btn-primary">入る</a>
+                </div>
+            </div>
+        </div>
+        <div class="card-footer text-muted" th:text="'ボードID: ' + ${board.id}">
+        </div>
+    </div>
+</div>
+
 </body>
 </html>

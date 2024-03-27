@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	xmlns:th="http://www.thymeleaf.org"
+	th:replace="~{layouts/layouts :: layout(~{::title}, ~{::body/content()})}">
+<head>
+    <title>Edit Chat</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/5.1.3/css/bootstrap.min.css">
+</head>
+<body>
+    <div class="container mt-4">
+        <h1>チャット編集</h1>
+        <form th:action="@{/boards/{boardId}/chats/{chatId}(boardId=${boardId}, chatId=${chat.id})}" th:object="${chatDTO}" method="post">
+            <input type="hidden" th:field="*{id}" />
+            <div class="mb-3">
+                <label for="message" class="form-label">メッセージ</label>
+                <textarea class="form-control" id="message" name="message" th:field="*{message}" rows="3" required></textarea>
+            </div>
+            <button type="submit" class="btn btn-primary">更新</button>
+            <a th:href="@{/boards/{boardId}/chats(boardId=${boardId})}" class="btn btn-secondary">キャンセル</a>
+        </form>
+    </div>
+</body>
+</html>

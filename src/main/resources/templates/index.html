@@ -38,7 +38,8 @@
 						th:text="${#temporals.format(board.updatedAt, 'yyyy-MM-dd HH:mm:ss')}">Updated
 						At</td>
 					<td>
-						<form th:action="@{/board/{id}/delete(id=${board.id})}" th:method="delete">
+						<form th:action="@{/board/{id}/delete(id=${board.id})}"
+							th:method="delete">
 							<button type="submit" class="btn btn-danger btn-sm">削除</button>
 						</form>
 					</td>
