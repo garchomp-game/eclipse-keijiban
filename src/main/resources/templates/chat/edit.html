@@ -9,8 +9,7 @@
 <body>
     <div class="container mt-4">
         <h1>チャット編集</h1>
-        <form th:action="@{/boards/{boardId}/chats/{chatId}(boardId=${boardId}, chatId=${chat.id})}" th:object="${chatDTO}" method="post">
-            <input type="hidden" th:field="*{id}" />
+        <form th:action="@{/boards/{boardId}/chats/{chatId}(boardId=${boardId}, chatId=${chatId})}" th:object="${chatDTO}" th:method="post">
             <div class="mb-3">
                 <label for="message" class="form-label">メッセージ</label>
                 <textarea class="form-control" id="message" name="message" th:field="*{message}" rows="3" required></textarea>

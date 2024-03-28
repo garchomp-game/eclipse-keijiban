@@ -7,6 +7,7 @@ import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -67,12 +68,21 @@ public class ChatController {
                                @PathVariable("chatId") Long chatId, Model model) {
         ChatDTO chatDTO = chatService.getChatById(chatId);
         model.addAttribute("boardId", boardId);
+        model.addAttribute("chatId", chatId);
         model.addAttribute("chatDTO", chatDTO);
         return "chat/edit";
     }
 
+    // チャット削除処理
+    @DeleteMapping("/{chatId}/delete")
+    public String deleteChat(@PathVariable("boardId") Long boardId,
+                             @PathVariable("chatId") Long chatId) {
+        chatService.deleteChat(chatId);
+        return "redirect:/boards/" + boardId + "/chats";
+    }
+
     // チャット更新処理
-    @PostMapping("/{chatId}/edit")
+    @PostMapping("/{chatId}")
     public String updateChat(@PathVariable("boardId") Long boardId,
                              @PathVariable("chatId") Long chatId,
                              @ModelAttribute @Valid ChatDTO chatDTO,
@@ -81,14 +91,6 @@ public class ChatController {
             return "chat/edit";
         }
         chatService.updateChat(chatDTO, chatId);
-        return "redirect:/boards/" + boardId + "/chats";
-    }
-
-    // チャット削除処理
-    @PostMapping("/{chatId}/delete")
-    public String deleteChat(@PathVariable("boardId") Long boardId,
-                             @PathVariable("chatId") Long chatId) {
-        chatService.deleteChat(chatId);
         return "redirect:/boards/" + boardId + "/chats";
     }
     

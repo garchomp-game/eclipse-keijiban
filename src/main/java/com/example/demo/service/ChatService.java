@@ -9,21 +9,25 @@ import org.springframework.data.rest.webmvc.ResourceNotFoundException;
 import org.springframework.stereotype.Service;
 
 import com.example.demo.dto.ChatDTO;
+import com.example.demo.model.Board;
 import com.example.demo.model.Chat;
 import com.example.demo.model.User;
+import com.example.demo.repository.BoardRepository;
 import com.example.demo.repository.ChatRepository;
 
 @Service
 public class ChatService {
     
     private final ChatRepository chatRepository;
+    private final BoardRepository boardRepository;
     private final ModelMapper modelMapper;
     
     // コンストラクタでChatRepositoryとModelMapperを注入
     @Autowired
-    public ChatService(ChatRepository chatRepository, ModelMapper modelMapper) {
+    public ChatService(ChatRepository chatRepository, BoardRepository boardRepository, ModelMapper modelMapper) {
         this.chatRepository = chatRepository;
         this.modelMapper = modelMapper;
+        this.boardRepository = boardRepository;
     }
     
     // ボードIDに基づいてチャットのリストを取得
@@ -37,7 +41,9 @@ public class ChatService {
     // 新しいチャットを作成
     public void createChat(ChatDTO chatDTO, Long boardId, User user) {
         Chat chat = modelMapper.map(chatDTO, Chat.class);
+        Board board = boardRepository.findById(boardId).orElseThrow();
         // ここでboardIdとuserIdをセットする必要がある
+        chat.setBoard(board);
         chat.setUser(user);
         chatRepository.save(chat);
     }
